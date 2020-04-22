@@ -27,6 +27,10 @@ namespace MinkFunctionVisualStudio
             var temp = JObject.Parse(messageString)["temperature"].ToString().Replace(',', '.');
             var humid = JObject.Parse(messageString)["humidity"].ToString().Replace(',', '.');
             var time = JObject.Parse(messageString)["nowTime"].ToString().Replace(',', '.');
+            DateTime timeDate = DateTime.ParseExact(time, "dd/MM/yy - HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+            time = timeDate.ToString("yy-MM-dd HH:mm:ss").Replace('.', ':');
+            time = "20"+time;
+            Console.WriteLine(time);
             //var temp = JObject.Parse(messageString)["temperature"];
 
             var str = Environment.GetEnvironmentVariable("sqldb_connection");
