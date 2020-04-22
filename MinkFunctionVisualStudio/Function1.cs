@@ -10,6 +10,7 @@ using System;
 
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace MinkFunctionVisualStudio
 {
@@ -22,14 +23,23 @@ namespace MinkFunctionVisualStudio
             string messageString = Encoding.UTF8.GetString(message.Body.Array);
             log.LogInformation($"C# IoT Hub trigger function processed a message: {messageString}");
             Console.WriteLine(messageString);
+            //JObject json = JObject.Parse(messageString);
+            var temp = JObject.Parse(messageString)["temperature"];
+            var humid = JObject.Parse(messageString)["humidity"];
+            var time = JObject.Parse(messageString)["nowTime"];
+            //var temp = JObject.Parse(messageString)["temperature"];
 
             var str = Environment.GetEnvironmentVariable("sqldb_connection");
-            using (SqlConnection conn = new SqlConnection(str)) 
+            using (SqlConnection conn = new SqlConnection(str))
+
             {
                 conn.Open();
                 Console.WriteLine("Connection is bueno");
-                var text = "UPDATE dbo.test_table " +
-                "SET deviceColour = 'yellow'  WHERE deviceColour = 'blue';";
+
+
+                var text = "INSERT INTO dbo.mink_sensor_table (temperature, humidity, recordedtime)" +
+                 $"VALUES ({temp}, {humid}, '{time}')";
+                Console.WriteLine(text);
                 using (SqlCommand cmd = new SqlCommand(text, conn))
                 {
                     // Execute the command and log the # rows affected.
