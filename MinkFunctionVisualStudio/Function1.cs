@@ -24,9 +24,9 @@ namespace MinkFunctionVisualStudio
             log.LogInformation($"C# IoT Hub trigger function processed a message: {messageString}");
             Console.WriteLine(messageString);
             //JObject json = JObject.Parse(messageString);
-            var temp = JObject.Parse(messageString)["temperature"];
-            var humid = JObject.Parse(messageString)["humidity"];
-            var time = JObject.Parse(messageString)["nowTime"];
+            var temp = JObject.Parse(messageString)["temperature"].ToString().Replace(',', '.');
+            var humid = JObject.Parse(messageString)["humidity"].ToString().Replace(',', '.');
+            var time = JObject.Parse(messageString)["nowTime"].ToString().Replace(',', '.');
             //var temp = JObject.Parse(messageString)["temperature"];
 
             var str = Environment.GetEnvironmentVariable("sqldb_connection");
