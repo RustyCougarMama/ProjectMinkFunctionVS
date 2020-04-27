@@ -35,7 +35,6 @@ namespace MinkFunctionVisualStudio
 
             var str = Environment.GetEnvironmentVariable("sqldb_connection");
             using (SqlConnection conn = new SqlConnection(str))
-
             {
                 conn.Open();
                 Console.WriteLine("Connection is bueno");
@@ -52,7 +51,21 @@ namespace MinkFunctionVisualStudio
                 }
             }
 
+            string powerBiUrl = "https://api.powerbi.com/beta/d6338997-214a-4f92-ba75-0397f10a84cc/datasets/cf572f58-9156-4838-93cb-ee3ed0b23730/rows?noSignUpCheck=1&key=j2%2BXxi8OUy12y2qtCh76d0fMO1KZ1c9CxNoRnOYCzgZaELakdhaCOzWuwMM19sc2YN3GLgiK4x%2Bxta1QNefwnA%3D%3D";
+
+            HttpContent content = new StringContent(messageString);
+            
+            try
+            {
+                HttpResponseMessage response = await client.PostAsync(powerBiUrl, content);
+                response.EnsureSuccessStatusCode();
             }
+            catch
+            {
+                Console.WriteLine("HTTP Response failed.");
+            }
+
+        }
 
 
         
