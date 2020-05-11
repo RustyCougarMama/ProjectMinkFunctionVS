@@ -53,16 +53,22 @@ namespace MinkFunctionVisualStudio
 
             string powerBiUrl = "https://api.powerbi.com/beta/d6338997-214a-4f92-ba75-0397f10a84cc/datasets/cf572f58-9156-4838-93cb-ee3ed0b23730/rows?noSignUpCheck=1&key=j2%2BXxi8OUy12y2qtCh76d0fMO1KZ1c9CxNoRnOYCzgZaELakdhaCOzWuwMM19sc2YN3GLgiK4x%2Bxta1QNefwnA%3D%3D";
 
-            HttpContent content = new StringContent(messageString);
-            
+            JObject jObj = Newtonsoft.Json.JsonConvert.DeserializeObject(messageString) as JObject;
+            jObj["nowTime"] = time;
+            string newMessage = Newtonsoft.Json.JsonConvert.SerializeObject(jObj, Newtonsoft.Json.Formatting.Indented); 
+
+            HttpContent content = new StringContent(newMessage);
+            log.LogInformation($"This is being posted to Power Bi: {newMessage}");
             try
             {
                 HttpResponseMessage response = await client.PostAsync(powerBiUrl, content);
                 response.EnsureSuccessStatusCode();
+                
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("HTTP Response failed.");
+                // log.LogInformation("HTTP Response failed.");
+                // log.LogError(ex.ToString());
             }
 
         }
