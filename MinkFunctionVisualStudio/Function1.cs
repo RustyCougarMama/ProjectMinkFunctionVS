@@ -40,7 +40,7 @@ namespace MinkFunctionVisualStudio
                 Console.WriteLine("Connection is bueno");
 
 
-                var text = "INSERT INTO dbo.mink_sensor_table (temperature, humidity, recordedtime)" +
+                var text = "INSERT INTO dbo.Mink_sensor_table (temperature, humidity, recordedtime)" +
                  $"VALUES ({temp}, {humid}, '{time}')";
                 Console.WriteLine(text);
                 using (SqlCommand cmd = new SqlCommand(text, conn))
@@ -51,12 +51,16 @@ namespace MinkFunctionVisualStudio
                 }
             }
 
+            /// This is where you will enter the connection string from the Power Bi API, which you will create yourself.
             string powerBiUrl = "https://api.powerbi.com/beta/d6338997-214a-4f92-ba75-0397f10a84cc/datasets/cf572f58-9156-4838-93cb-ee3ed0b23730/rows?noSignUpCheck=1&key=j2%2BXxi8OUy12y2qtCh76d0fMO1KZ1c9CxNoRnOYCzgZaELakdhaCOzWuwMM19sc2YN3GLgiK4x%2Bxta1QNefwnA%3D%3D";
-
-            HttpContent content = new StringContent(messageString);
+            JObject jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(messageString) as JObject;
+            jsonObj["nowTime"] = time;
+            string newMessage = jsonObj.ToString();
+            HttpContent content = new StringContent(newMessage);
             
             try
             {
+                log.LogInformation($"Posted this to Power Bi: {content}");
                 HttpResponseMessage response = await client.PostAsync(powerBiUrl, content);
                 response.EnsureSuccessStatusCode();
             }
