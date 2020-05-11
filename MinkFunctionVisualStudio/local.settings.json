@@ -3,7 +3,7 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "ConnectionString": "Endpoint=sb://ihsuproddbres026dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=bCKCVX8+jlPsqmmuo5YW556KOxkHLhXbMDfPnHxOJik=;EntityPath=iothub-ehub-projectmin-3178058-c88618470d",
-    "sqldb_connection": "Server=tcp:mink-server.database.windows.net,1433;Initial Catalog=ProjectMinkSQL;Persist Security Info=False;User ID=Group13;Password=ProjectMink13;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "ConnectionString": "Endpoint=sb://ihsuproddbres043dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=ecHoR2BUpbaiiqVLnX1ye4z14IrZJ7eXHZ55EQEK8n8=;EntityPath=iothub-ehub-minkiothub-3326833-b59a2fb94a",
+    "sqldb_connection": "Server=tcp:minkserver.database.windows.net,1433;Initial Catalog=SQL-MinkBase;Persist Security Info=False;User ID=admink;Password=Group_13;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 }

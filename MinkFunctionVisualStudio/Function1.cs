@@ -40,7 +40,7 @@ namespace MinkFunctionVisualStudio
                 Console.WriteLine("Connection is bueno");
 
 
-                var text = "INSERT INTO dbo.mink_sensor_table (temperature, humidity, recordedtime)" +
+                var text = "INSERT INTO dbo.Mink_sensor_table (temperature, humidity, recordedtime)" +
                  $"VALUES ({temp}, {humid}, '{time}')";
                 Console.WriteLine(text);
                 using (SqlCommand cmd = new SqlCommand(text, conn))
